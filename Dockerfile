@@ -1,13 +1,15 @@
 FROM ubuntu:20.04
 MAINTAINER hksanduo<hksanduo@qq.com>
-ENV LANG=en_US.UTF-8
+# ENV is not working
+#ENV LANG C.UTF-8
+RUN echo "export LC_ALL="C.UTF-8"" >> /etc/bash.bashrc
 
 # config apt sources.list
-RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+RUN sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
 
 # Install basic packages
 RUN apt-get update
-RUN apt-get install -y software-properties-common vim  && \
+RUN apt-get install -y software-properties-common vim unzip && \
 add-apt-repository ppa:ondrej/php && apt-get update
 
 # Install php7.0
